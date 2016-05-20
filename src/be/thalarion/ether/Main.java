@@ -9,9 +9,21 @@ import javafx.stage.Stage;
 
 /**
  * Ether. P2P file transfer
- * @author Florian Dejonckheere
+ * @author florian
  */
 public class Main extends Application {
+    
+    public static final int VERSION = 1;
+    
+    private static Ether ether;
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        ether = new Ether();
+        launch(args);
+    }
     
     @Override
     public void start(Stage stage) 
@@ -24,14 +36,11 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setTitle("Ether");
         
-        ApplicationController appCtrl = loader.getController();
-        
         stage.show();
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) { launch(args);}
-    
+    @Override
+    public void stop() {
+        ether.stop();
+    }
 }
