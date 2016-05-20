@@ -24,7 +24,7 @@ public class Ether {
         if (mdns.isRegistered())
             mdns.unregister();
         
-//        server.stop();
+        server.stop();
     }
     
 }

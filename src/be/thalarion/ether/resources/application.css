@@ -4,3 +4,7 @@
  * Florian Dejonckheere <florian@floriandejonckheere.be>
  *
  * */
+.type-desktop { -fx-image: url("desktop.png"); }
+.type-laptop { -fx-image: url("laptop.png"); }
+.type-mobile { -fx-image: url("mobile.png"); }
+.type-unknown { -fx-image: url("unknown.png"); }

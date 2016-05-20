@@ -1,6 +1,7 @@
 package be.thalarion.ether.network;
 
 import be.thalarion.ether.gui.ApplicationController;
+import be.thalarion.ether.network.Host.TYPE;
 import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceListener;
 
@@ -16,7 +17,8 @@ public class MDNSListener implements ServiceListener {
                 new Host(
                         se.getInfo().getName(),
                         se.getInfo().getInetAddresses(),
-                        se.getInfo().getPort()
+                        se.getInfo().getPort(),
+                        TYPE.valueOf(se.getInfo().getPropertyString("type"))
                 )
         );
     }
@@ -27,14 +29,22 @@ public class MDNSListener implements ServiceListener {
                 new Host(
                         se.getInfo().getName(),
                         se.getInfo().getInetAddresses(),
-                        se.getInfo().getPort()
+                        se.getInfo().getPort(),
+                        TYPE.valueOf(se.getInfo().getPropertyString("type"))
                 )
         );
     }
 
     @Override
     public void serviceResolved(ServiceEvent se) {
-        System.out.println("Service resolved: " + se);
+        ApplicationController.getInstance().addHost(
+                new Host(
+                        se.getInfo().getName(),
+                        se.getInfo().getInetAddresses(),
+                        se.getInfo().getPort(),
+                        TYPE.valueOf(se.getInfo().getPropertyString("type"))
+                )
+        );
     }
     
 }

@@ -8,17 +8,26 @@ import java.net.InetAddress;
  */
 public class Host {
     
+    public static enum TYPE {
+        LAPTOP,
+        DESKTOP,
+        MOBILE
+    }
+    
     private final String name;
     private final InetAddress[] address;
     private final int port;
+    private final TYPE type;
 
-    public Host(String name, InetAddress[] address, int port) {
+    public Host(String name, InetAddress[] address, int port, TYPE type) {
         this.name = name;
         this.address = address;
         this.port = port;
+        this.type = type;
     }
 
     public String getName() { return name; }
+    public TYPE getType() { return type; }
 
     @Override
     public boolean equals(Object obj) {
