@@ -1,22 +1,23 @@
 package be.thalarion.ether.network;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Server control layer
+ * 
  * @author florian
  */
 public class Server {
     
     public static boolean started = false;
     
-    public static int port;
+    private InetAddress address;
+    private int port;
     
     private ServerSocket socket;
     private Thread server;
@@ -32,19 +33,21 @@ public class Server {
         } catch (IOException ex) {}
     }
     
+    public InetAddress getAddress() { return address; }
+    public int getPort() { return port; }
+    
     private class ServerThread implements Runnable {
 
         private final List<Socket> clients;
 
-        public ServerThread() {
-            clients = new ArrayList<>();
-        }
+        public ServerThread() { clients = new ArrayList<>(); }
         
         @Override
         public void run() {
             try {
                 socket = new ServerSocket(0);
                 
+                address = socket.getInetAddress();
                 port = socket.getLocalPort();
                 
                 synchronized (Server.class) {

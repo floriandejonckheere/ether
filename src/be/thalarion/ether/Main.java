@@ -1,6 +1,5 @@
 package be.thalarion.ether;
 
-import be.thalarion.ether.gui.ApplicationController;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +20,8 @@ public class Main extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ether = new Ether();
+        ether = Ether.getInstance();
+
         launch(args);
     }
     

@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 
 /**
  * HostEntry controller
+ * 
  * @author florian
  */
 public class HostEntryController {
@@ -16,8 +17,15 @@ public class HostEntryController {
     @FXML
     private Label name;
     
-    public void setName(String name) { this.name.setText(name); }
+    public void setName(String name) {
+        if (type == null) return;
+        
+        this.name.setText(name);
+    }
+    
     public void setType(TYPE type) {
+        if (type == null) return;
+        
         this.type.getStyleClass().clear();
         
         switch (type) {

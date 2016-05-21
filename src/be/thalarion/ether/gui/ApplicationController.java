@@ -1,9 +1,11 @@
 package be.thalarion.ether.gui;
 
+import be.thalarion.ether.Ether;
 import be.thalarion.ether.network.Host;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
@@ -19,10 +21,10 @@ public class ApplicationController {
     private static ApplicationController instance;
 
     private BooleanProperty loading;
-    private ObservableList<Host> hosts;
+    private ObservableList<HostEntry> hosts;
 
     @FXML
-    private ListView hostsListView;
+    private ListView<HostEntry> hostsListView;
     @FXML
     private StackPane loadingPane;
     
@@ -35,11 +37,14 @@ public class ApplicationController {
         
         hosts = FXCollections.observableArrayList();
         
+        Ether.getInstance().getObservableHostList().addListener((ListChangeListener.Change<? extends Host> c) -> {
+            hosts.clear();
+            for (Host host: Ether.getInstance().getObservableHostList())
+                hosts.add(new HostEntry(host));
+        });
+        
         hostsListView.setItems(hosts);
     }
     
     public static ApplicationController getInstance() { return instance; }
-    
-    public void addHost(Host host) { hosts.add(host); }
-    public void removeHost(Host host) { hosts.remove(host); }
 }
