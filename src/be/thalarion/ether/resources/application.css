@@ -6,14 +6,16 @@
  * */
 
 /* list icons */
-.type-desktop { -fx-image: url("desktop.png"); }
-.type-laptop { -fx-image: url("laptop.png"); }
-.type-mobile { -fx-image: url("mobile.png"); }
-.type-unknown { -fx-image: url("unknown.png"); }
+.type-linux { -fx-image: url("linux-black.png"); }
+.type-android { -fx-image: url("android-black.png"); }
+.type-windows { -fx-image: url("windows-black.png"); }
+.type-apple { -fx-image: url("apple-black.png"); }
+.type-unknown { -fx-image: url("unknown-black.png"); }
 
-.list-cell:focused .type-desktop { -fx-image: url("desktop-white.png"); }
-.list-cell:focused .type-laptop { -fx-image: url("laptop-white.png"); }
-.list-cell:focused .type-mobile { -fx-image: url("mobile-white.png"); }
+.list-cell:focused .type-linux { -fx-image: url("linux-white.png"); }
+.list-cell:focused .type-android { -fx-image: url("android-white.png"); }
+.list-cell:focused .type-windows { -fx-image: url("windows-white.png"); }
+.list-cell:focused .type-apple { -fx-image: url("apple-white.png"); }
 .list-cell:focused .type-unknown { -fx-image: url("unknown-white.png"); }
 
 /* loading screen */

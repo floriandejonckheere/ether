@@ -17,9 +17,11 @@ import javafx.beans.property.SimpleBooleanProperty;
 public class Host implements Observable {
     
     public static enum TYPE {
-        LAPTOP,
-        DESKTOP,
-        MOBILE
+        LINUX,
+        WINDOWS,
+        APPLE,
+        ANDROID,
+        UNKNOWN
     }
     
     private final UUID uuid;

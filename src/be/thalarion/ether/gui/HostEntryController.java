@@ -29,15 +29,17 @@ public class HostEntryController {
         this.type.getStyleClass().clear();
         
         switch (type) {
-            case DESKTOP:
-                this.type.getStyleClass().add("type-desktop");
+            case LINUX:
+                this.type.getStyleClass().add("type-linux");
                 break;
-            case LAPTOP:
-                this.type.getStyleClass().add("type-laptop");
+            case ANDROID:
+                this.type.getStyleClass().add("type-android");
                 break;
-            case MOBILE:
-                this.type.getStyleClass().add("type-mobile");
+            case WINDOWS:
+                this.type.getStyleClass().add("type-windows");
                 break;
+            case APPLE:
+                this.type.getStyleClass().add("type-apple");
             default:
                 this.type.getStyleClass().add("type-unknown");
         }

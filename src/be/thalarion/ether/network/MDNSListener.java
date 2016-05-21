@@ -17,8 +17,7 @@ public class MDNSListener implements ServiceListener {
     @Override
     public void serviceAdded(ServiceEvent se) {
         System.out.println(String.format(
-                "[%s] Added %s",
-                MDNS.IDENTIFIER,
+                "Added %s",
                 se.getName()
         ));
         
@@ -34,8 +33,7 @@ public class MDNSListener implements ServiceListener {
     @Override
     public void serviceRemoved(ServiceEvent se) {
         System.out.println(String.format(
-                "[%s] Removed %s",
-                MDNS.IDENTIFIER,
+                "Removed %s",
                 se.getName()
         ));
         
@@ -47,8 +45,7 @@ public class MDNSListener implements ServiceListener {
     @Override
     public void serviceResolved(ServiceEvent se) {
         System.out.println(String.format(
-                "[%s] Resolved %s",
-                MDNS.IDENTIFIER,
+                "Resolved %s",
                 se.getName()
         ));
         

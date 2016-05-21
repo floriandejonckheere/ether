@@ -43,8 +43,9 @@ public class ApplicationController {
         
         Ether.getInstance().getObservableHostList().addListener((ListChangeListener.Change<? extends Host> c) -> {
             hosts.clear();
+            
             for (Host host: Ether.getInstance().getObservableHostList())
-                if (!host.getUUID().equals(MDNS.IDENTIFIER) && host.activeProperty().get())
+                if (!host.getUUID().equals(Ether.getInstance().getUUID()) && host.activeProperty().get())
                     hosts.add(new HostEntry(host));
         });
         

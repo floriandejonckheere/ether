@@ -74,5 +74,6 @@ public class Ether {
     }
     
     public ObservableList<Host> getObservableHostList() { return hosts; }
+    public UUID getUUID() { return mdns.getUUID(); }
     
 }
