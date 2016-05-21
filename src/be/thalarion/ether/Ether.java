@@ -1,5 +1,6 @@
 package be.thalarion.ether;
 
+import be.thalarion.ether.gui.ApplicationController;
 import be.thalarion.ether.network.Host;
 import be.thalarion.ether.network.MDNS;
 import be.thalarion.ether.network.Server;
@@ -31,6 +32,8 @@ public class Ether {
         
         mdns = new MDNS();
         server = new Server();
+        
+        ApplicationController.getInstance().setLoading(true);
         
         server.start();
         mdns.register();

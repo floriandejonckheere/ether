@@ -1,12 +1,14 @@
 package be.thalarion.ether.network;
 
 import be.thalarion.ether.Ether;
+import be.thalarion.ether.gui.ApplicationController;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import javafx.application.Platform;
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
 
@@ -62,6 +64,10 @@ public class MDNS {
                     jmdns.registerService(serviceInfo);
                     
                     jmdns.addServiceListener(MDNS.SERVICE_TYPE, new MDNSListener());
+                    
+                    Platform.runLater(() -> {
+                        ApplicationController.getInstance().setLoading(false);
+                    });
                 }
             } catch (IOException | InterruptedException ex) {
                 throw new RuntimeException(ex);

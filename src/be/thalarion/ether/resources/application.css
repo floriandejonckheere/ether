@@ -4,12 +4,17 @@
  * Florian Dejonckheere <florian@floriandejonckheere.be>
  *
  * */
+
+/* list icons */
 .type-desktop { -fx-image: url("desktop.png"); }
 .type-laptop { -fx-image: url("laptop.png"); }
 .type-mobile { -fx-image: url("mobile.png"); }
 .type-unknown { -fx-image: url("unknown.png"); }
 
-.list-cell:active .type-desktop { -fx-image: url("desktop-white.png"); }
-.list-cell:active .type-laptop { -fx-image: url("laptop-white.png"); }
-.list-cell:active .type-mobile { -fx-image: url("mobile-white.png"); }
-.list-cell:active .type-unknown { -fx-image: url("unknown-white.png"); }
+.list-cell:focused .type-desktop { -fx-image: url("desktop-white.png"); }
+.list-cell:focused .type-laptop { -fx-image: url("laptop-white.png"); }
+.list-cell:focused .type-mobile { -fx-image: url("mobile-white.png"); }
+.list-cell:focused .type-unknown { -fx-image: url("unknown-white.png"); }
+
+/* loading screen */
+#loadingPane Pane { -fx-background-color: rgba(0, 0, 0, 0.8); }

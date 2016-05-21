@@ -20,8 +20,6 @@ public class Main extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ether = Ether.getInstance();
-
         launch(args);
     }
     
@@ -35,6 +33,8 @@ public class Main extends Application {
         scene.getStylesheets().add(getClass().getResource("resources/application.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Ether");
+        
+        ether = Ether.getInstance();
         
         stage.show();
     }

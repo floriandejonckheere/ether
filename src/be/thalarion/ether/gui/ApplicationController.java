@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.StackPane;
 
@@ -46,7 +47,10 @@ public class ApplicationController {
         });
         
         hostsListView.setItems(hosts);
+        hostsListView.setPlaceholder(new Label("No hosts on the network"));
     }
     
     public static ApplicationController getInstance() { return instance; }
+    public void setLoading(boolean loading) { this.loading.set(loading); }
+    
 }

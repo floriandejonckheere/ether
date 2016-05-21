@@ -16,7 +16,8 @@
       </HBox>
       <StackPane fx:id="loadingPane" visible="false">
          <children>
-            <ProgressIndicator maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" progress="0.0" />
+             <Pane />
+             <ProgressIndicator maxHeight="75.0" maxWidth="75.0" />
          </children>
       </StackPane>
    </children>
