@@ -45,8 +45,11 @@ public class ApplicationController {
             hosts.clear();
             
             for (Host host: Ether.getInstance().getObservableHostList())
-                if (!host.getUUID().equals(Ether.getInstance().getUUID()) && host.activeProperty().get())
-                    hosts.add(new HostEntry(host));
+                if (host.activeProperty().get())
+                    if (host.getUUID().equals(Ether.getInstance().getUUID()))
+                        hosts.add(new HostEntry(Ether.getInstance().getLocalhost()));
+                    else
+                        hosts.add(new HostEntry(host));
         });
         
         hostsListView.setItems(hosts);

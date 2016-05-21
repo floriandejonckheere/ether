@@ -1,11 +1,9 @@
 package be.thalarion.ether;
 
-import be.thalarion.ether.gui.ApplicationController;
 import be.thalarion.ether.network.Host;
 import be.thalarion.ether.network.MDNS;
 import be.thalarion.ether.network.Server;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.UUID;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
@@ -50,8 +48,6 @@ public class Ether {
         
         server.stop();
     }
-
-    public Server getServer() { return server; }
     
     public Host getHost(String name) {
         UUID uuid = UUID.fromString(name);
@@ -75,5 +71,8 @@ public class Ether {
     
     public ObservableList<Host> getObservableHostList() { return hosts; }
     public UUID getUUID() { return mdns.getUUID(); }
+    public Server getServer() { return server; }
+    
+    public Host getLocalhost() { return mdns.getLocalhost(); }
     
 }

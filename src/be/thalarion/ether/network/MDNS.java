@@ -8,7 +8,6 @@ import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import java.util.UUID;
 import javafx.application.Platform;
 import javax.jmdns.JmDNS;
@@ -26,6 +25,7 @@ public class MDNS {
     private static final int PRIORITY = 0;
     
     private final UUID uuid;
+    private final Host localhost;
     
     private final Map<String, byte[]> properties;
     
@@ -33,24 +33,30 @@ public class MDNS {
     
     public MDNS() {
         uuid = UUID.randomUUID();
+        String name = Name.generate();
+        
         properties = new HashMap<String, byte[]>() {{
-            put("name", Name.generate().getBytes(StandardCharsets.UTF_8));
+            put("name", name.getBytes(StandardCharsets.UTF_8));
         }};
         
         String os = System.getProperty("os.name").toLowerCase();
+        TYPE type = TYPE.UNKNOWN;
         if (os.contains("linux"))
-            properties.put("type", TYPE.LINUX.name().getBytes(StandardCharsets.UTF_8));
+            type = TYPE.LINUX;
         else if (os.contains("windows"))
-            properties.put("type", TYPE.WINDOWS.name().getBytes(StandardCharsets.UTF_8));
+            type = TYPE.WINDOWS;
         else if (os.contains("mac"))
-            properties.put("type", TYPE.APPLE.name().getBytes(StandardCharsets.UTF_8));
-        else
-            properties.put("type", TYPE.UNKNOWN.name().getBytes(StandardCharsets.UTF_8));
+            type = TYPE.APPLE;
+        properties.put("type", type.name().getBytes(StandardCharsets.UTF_8));
+        
+        localhost = new Host(uuid);
+        localhost.setName(String.format("%s (this computer)", name));
+        localhost.setType(type);
     }
     
     public boolean isRegistered() { return (jmdns != null); }
     public UUID getUUID() { return uuid; }
-    
+    public Host getLocalhost() { return localhost; }
     
     public void register() {
         new Thread(() -> {

@@ -10,8 +10,9 @@
    <children>
       <HBox>
          <children>
-            <ListView fx:id="hostsListView" prefHeight="400.0" prefWidth="600.0">
+            <ListView fx:id="hostsListView" HBox.hgrow="ALWAYS">
       </ListView>
+            <TreeView prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
       <StackPane fx:id="loadingPane" visible="false">
