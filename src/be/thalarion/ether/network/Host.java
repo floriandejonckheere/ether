@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.UUID;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 /**
  * Host
@@ -25,43 +27,47 @@ public class Host implements Observable {
     private InetAddress[] address;
     private int port;
     private TYPE type;
+    private final BooleanProperty active;
 
     private final List<InvalidationListener> listeners;
     
     public Host(UUID uuid) {
         this.uuid = uuid;
         listeners = new ArrayList<>();
+        active = new SimpleBooleanProperty(true);
     };
 
+    public UUID getUUID() { return uuid; }
+    
     public String getName() { return name; }
     public void setName(String name) {
         this.name = name;
-        for (InvalidationListener il: listeners)
-            il.invalidated(this);
+        invalidate();
     }
 
     public InetAddress[] getAddress() { return address; }
     public void setAddress(InetAddress[] address) {
         this.address = address;
-        for (InvalidationListener il: listeners)
-            il.invalidated(this);
+        invalidate();
     }
 
     public int getPort() { return port; }
     public void setPort(int port) {
         this.port = port;
-        for (InvalidationListener il: listeners)
-            il.invalidated(this);
+        invalidate();
     }
     
     public TYPE getType() { return type; }
     public void setType(TYPE type) {
         this.type = type;
-        for (InvalidationListener il: listeners)
-            il.invalidated(this);
+        invalidate();
     }
 
-    public UUID getUUID() { return uuid; }
+    public BooleanProperty activeProperty() { return active; }
+    public void setActive(boolean active) {
+        this.active.set(active);
+        invalidate();
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -79,4 +85,8 @@ public class Host implements Observable {
     @Override
     public void removeListener(InvalidationListener listener) { listeners.remove(listener); }
     
+    private void invalidate() {
+        for (InvalidationListener il: listeners)
+            il.invalidated(this);
+    }
 }

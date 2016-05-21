@@ -37,10 +37,10 @@ public class Main extends Application {
         ether = Ether.getInstance();
         
         stage.show();
-    }
-
-    @Override
-    public void stop() {
-        ether.stop();
+        
+        stage.setOnCloseRequest((ev) -> {
+            ev.consume();
+            ether.stop();
+        });
     }
 }

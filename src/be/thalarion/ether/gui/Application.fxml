@@ -17,7 +17,12 @@
       <StackPane fx:id="loadingPane" visible="false">
          <children>
              <Pane />
-             <ProgressIndicator maxHeight="75.0" maxWidth="75.0" />
+            <VBox alignment="CENTER" spacing="10.0" StackPane.alignment="CENTER">
+               <children>
+                   <ProgressIndicator maxHeight="75.0" maxWidth="75.0" />
+                  <Label fx:id="loadingLabel" text="Label" />
+               </children>
+            </VBox>
          </children>
       </StackPane>
    </children>

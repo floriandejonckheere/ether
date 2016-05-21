@@ -35,12 +35,15 @@ public class MDNS {
     
     public void register() {
         new Thread(() -> {
+            Platform.runLater(() -> {
+                ApplicationController.getInstance().setText("Registering on the network");
+                ApplicationController.getInstance().setLoading(true);
+            });
             try {
                 synchronized (MDNS.class) {
                     synchronized (Server.class) {
-                        while (!Server.started) {
+                        while (!Server.started)
                             Server.class.wait();
-                        }
                     }
                     
                     System.out.println(String.format("[%s] Listening on %s:%d", 
@@ -78,6 +81,10 @@ public class MDNS {
     public void unregister() {
         if (jmdns != null)
             new Thread(() -> {
+                Platform.runLater(() -> {
+                    ApplicationController.getInstance().setText("Unregistering from the network");
+                    ApplicationController.getInstance().setLoading(true);
+                });
                 synchronized (MDNS.class) {
                     jmdns.unregisterAllServices();
                     try {
@@ -86,6 +93,10 @@ public class MDNS {
                         throw new RuntimeException(ex);
                     } finally {
                         jmdns = null;
+                        Platform.runLater(() -> {
+                            ApplicationController.getInstance().setLoading(false);
+                            Platform.exit();
+                        });
                     }
                 }
             }).start();

@@ -18,3 +18,4 @@
 
 /* loading screen */
 #loadingPane Pane { -fx-background-color: rgba(0, 0, 0, 0.8); }
+#loadingLabel { -fx-text-fill: white; }

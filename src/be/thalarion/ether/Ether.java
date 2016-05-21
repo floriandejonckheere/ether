@@ -33,8 +33,6 @@ public class Ether {
         mdns = new MDNS();
         server = new Server();
         
-        ApplicationController.getInstance().setLoading(true);
-        
         server.start();
         mdns.register();
     }
@@ -70,10 +68,9 @@ public class Ether {
     public void removeHost(String name) {
         UUID uuid = UUID.fromString(name);
 
-        Iterator<Host> it = hosts.iterator();
-        while (it.hasNext())
-            if (it.next().getUUID().equals(uuid))
-                it.remove();
+        for (Host host: hosts)
+            if (host.getUUID().equals(uuid))
+                host.setActive(false);
     }
     
     public ObservableList<Host> getObservableHostList() { return hosts; }

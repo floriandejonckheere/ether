@@ -29,6 +29,8 @@ public class ApplicationController {
     private ListView<HostEntry> hostsListView;
     @FXML
     private StackPane loadingPane;
+    @FXML
+    private Label loadingLabel;
     
     public void initialize() {
         instance = this;
@@ -42,7 +44,7 @@ public class ApplicationController {
         Ether.getInstance().getObservableHostList().addListener((ListChangeListener.Change<? extends Host> c) -> {
             hosts.clear();
             for (Host host: Ether.getInstance().getObservableHostList())
-                if (!host.getUUID().equals(MDNS.IDENTIFIER))
+                if (!host.getUUID().equals(MDNS.IDENTIFIER) && host.activeProperty().get())
                     hosts.add(new HostEntry(host));
         });
         
@@ -52,5 +54,6 @@ public class ApplicationController {
     
     public static ApplicationController getInstance() { return instance; }
     public void setLoading(boolean loading) { this.loading.set(loading); }
+    public void setText(String text) { this.loadingLabel.setText(text); }
     
 }

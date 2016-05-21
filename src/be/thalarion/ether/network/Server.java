@@ -28,9 +28,13 @@ public class Server {
     }
     
     public void stop() {
-        try {
-            socket.close();
-        } catch (IOException ex) {}
+        if (socket != null)
+            try {
+                socket.close();
+            } catch (IOException ex) {
+            } finally {
+                socket = null;
+            }
     }
     
     public InetAddress getAddress() { return address; }
