@@ -16,6 +16,12 @@ public class MDNSListener implements ServiceListener {
 
     @Override
     public void serviceAdded(ServiceEvent se) {
+        System.out.println(String.format(
+                "[%s] Added %s",
+                MDNS.IDENTIFIER,
+                se.getName()
+        ));
+        
         ServiceInfo si = se.getInfo();
         
         Platform.runLater(() ->  {
@@ -27,7 +33,11 @@ public class MDNSListener implements ServiceListener {
 
     @Override
     public void serviceRemoved(ServiceEvent se) {
-        System.out.println("Removed: " + se.getName());
+        System.out.println(String.format(
+                "[%s] Removed %s",
+                MDNS.IDENTIFIER,
+                se.getName()
+        ));
         
         Platform.runLater(() -> {
             Ether.getInstance().removeHost(se.getInfo().getName());
@@ -36,7 +46,11 @@ public class MDNSListener implements ServiceListener {
 
     @Override
     public void serviceResolved(ServiceEvent se) {
-        System.out.println("Resolved: " + se.getName());
+        System.out.println(String.format(
+                "[%s] Resolved %s",
+                MDNS.IDENTIFIER,
+                se.getName()
+        ));
         
         ServiceInfo si = se.getInfo();
         

@@ -22,7 +22,7 @@ public class Ether {
     private final MDNS mdns;
     private final Server server;
     
-    private ObservableList<Host> hosts;
+    private final ObservableList<Host> hosts;
     
     private Ether() {
         hosts = FXCollections.observableList(new ArrayList<>(), (Host host) -> {
@@ -63,6 +63,7 @@ public class Ether {
         hosts.add(host);
         return host;
     }
+    
     public void removeHost(String name) {
         UUID uuid = UUID.fromString(name);
 

@@ -18,13 +18,13 @@ import javax.jmdns.ServiceInfo;
 public class MDNS {
     
     public static final String SERVICE_TYPE = "_ether._tcp.local.";
-    public static final String NAME = UUID.randomUUID().toString();
+    public static final UUID IDENTIFIER = UUID.randomUUID();
     public static final int WEIGHT = 0;
     public static final int PRIORITY = 0;
     
     public static final Map<String, byte[]> PROPERTIES = new HashMap<String, byte[]>() {{
         put("type", "laptop".getBytes(StandardCharsets.UTF_8));
-        put("name", NAME.getBytes(StandardCharsets.UTF_8));
+        put("name", IDENTIFIER.toString().getBytes(StandardCharsets.UTF_8));
     }};
     
     private static JmDNS jmdns;
@@ -42,7 +42,7 @@ public class MDNS {
                     }
                     
                     System.out.println(String.format("[%s] Listening on %s:%d", 
-                            MDNS.NAME, 
+                            MDNS.IDENTIFIER, 
                             Ether.getInstance().getServer().getAddress(),
                             Ether.getInstance().getServer().getPort()
                     ));
@@ -52,16 +52,14 @@ public class MDNS {
                     );
 
                     ServiceInfo serviceInfo = ServiceInfo.create(MDNS.SERVICE_TYPE,
-                            MDNS.NAME,
+                            MDNS.IDENTIFIER.toString(),
                             Ether.getInstance().getServer().getPort(),
                             MDNS.WEIGHT,
                             MDNS.PRIORITY,
                             MDNS.PROPERTIES
                     );
 
-                    System.out.println("Registering service");
                     jmdns.registerService(serviceInfo);
-                    System.out.println("Registered");
                     
                     jmdns.addServiceListener(MDNS.SERVICE_TYPE, new MDNSListener());
                 }
@@ -75,7 +73,6 @@ public class MDNS {
         if (jmdns != null)
             new Thread(() -> {
                 synchronized (MDNS.class) {
-                    System.out.println("Unregistering service");
                     jmdns.unregisterAllServices();
                     try {
                         jmdns.close();
@@ -83,7 +80,6 @@ public class MDNS {
                         throw new RuntimeException(ex);
                     } finally {
                         jmdns = null;
-                        System.out.println("Unregistered");
                     }
                 }
             }).start();
