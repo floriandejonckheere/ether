@@ -24,7 +24,7 @@ public class MDNS {
     
     public static final Map<String, byte[]> PROPERTIES = new HashMap<String, byte[]>() {{
         put("type", "laptop".getBytes(StandardCharsets.UTF_8));
-        put("name", IDENTIFIER.toString().getBytes(StandardCharsets.UTF_8));
+        put("name", Name.generate().getBytes());
     }};
     
     private static JmDNS jmdns;

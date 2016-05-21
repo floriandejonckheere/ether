@@ -18,7 +18,7 @@ public class HostEntryController {
     private Label name;
     
     public void setName(String name) {
-        if (type == null) return;
+        if (name == null || name.isEmpty()) return;
         
         this.name.setText(name);
     }
