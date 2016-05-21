@@ -8,3 +8,8 @@
 .type-laptop { -fx-image: url("laptop.png"); }
 .type-mobile { -fx-image: url("mobile.png"); }
 .type-unknown { -fx-image: url("unknown.png"); }
+
+.list-cell:focused .type-desktop { -fx-image: url("desktop-white.png"); }
+.list-cell:focused .type-laptop { -fx-image: url("laptop-white.png"); }
+.list-cell:focused .type-mobile { -fx-image: url("mobile-white.png"); }
+.list-cell:focused .type-unknown { -fx-image: url("unknown-white.png"); }
