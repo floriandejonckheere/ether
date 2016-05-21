@@ -16,6 +16,8 @@ import javafx.collections.ObservableList;
  */
 public class Ether {
     
+    public static final int API_VERSION = 1;
+    
     private static Ether instance;
     
     private final MDNS mdns;

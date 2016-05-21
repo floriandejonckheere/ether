@@ -96,4 +96,13 @@ public class Host implements Observable {
         for (InvalidationListener il: listeners)
             il.invalidated(this);
     }
+
+    @Override
+    public String toString() {
+        return String.format("[%s] %s (%s:%d)",
+                uuid,
+                name,
+                address,
+                port);
+    }
 }

@@ -34,6 +34,8 @@ public class HostEntry extends HBox {
         controller.setType(host.getType());
     }
 
+    public Host getHost() { return host; }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

@@ -1,5 +1,6 @@
 package be.thalarion.ether.network;
 
+import be.thalarion.ether.Ether;
 import be.thalarion.ether.Main;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -31,7 +32,7 @@ public class Client implements Runnable {
             String input;
             
             // Protocol handshake
-            out.write(String.format("OK ETHER %d\n", Main.VERSION));
+            out.write(String.format("OK ETHER %d\n", Ether.API_VERSION));
 
             // Receive protocol commands
             input = in.readLine();

@@ -11,9 +11,7 @@ import javafx.stage.Stage;
  * @author florian
  */
 public class Main extends Application {
-    
-    public static final int VERSION = 1;
-    
+        
     private static Ether ether;
     
     /**
