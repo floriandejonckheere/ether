@@ -1,9 +1,13 @@
 package be.thalarion.ether;
 
+import java.io.File;
 import java.io.IOException;
 import javafx.application.Application;
+import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.stage.Stage;
 
 /**
@@ -28,6 +32,24 @@ public class Main extends Application {
 
         Scene scene = new Scene(loader.load());
 
+        scene.setOnDragOver((ev) -> {
+            Dragboard db = ev.getDragboard();
+            if (db.hasFiles()) {
+                ev.acceptTransferModes(TransferMode.ANY);
+            } else ev.consume();
+        });
+        
+        scene.setOnDragDropped((ev) -> {
+            Dragboard db = ev.getDragboard();
+            if (db.hasFiles())
+                for (File file: db.getFiles())
+                    Ether.getInstance().addFile(file);
+
+                
+            ev.setDropCompleted(true);
+            ev.consume();
+        });
+        
         scene.getStylesheets().add(getClass().getResource("resources/application.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Ether");
@@ -41,4 +63,5 @@ public class Main extends Application {
             ether.stop();
         });
     }
+    
 }

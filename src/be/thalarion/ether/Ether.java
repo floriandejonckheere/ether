@@ -3,6 +3,7 @@ package be.thalarion.ether;
 import be.thalarion.ether.network.mDNS.mDNSHost;
 import be.thalarion.ether.network.mDNS.mDNS;
 import be.thalarion.ether.network.Server;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.UUID;
 import javafx.beans.Observable;
@@ -24,11 +25,14 @@ public class Ether {
     private final Server server;
     
     private final ObservableList<mDNSHost> hosts;
+    private final ObservableList<File> files;
     
     private Ether() {
         hosts = FXCollections.observableList(new ArrayList<>(), (mDNSHost host) -> {
             return new Observable[]{ host };
         });
+        
+        files = FXCollections.observableArrayList();
         
         mdns = new mDNS();
         server = new Server();
@@ -76,5 +80,9 @@ public class Ether {
     public Server getServer() { return server; }
     
     public mDNSHost getLocalhost() { return mdns.getLocalhost(); }
+    
+    public void addFile(File file) { this.files.add(file); }
+    public void removeFile(File file) { this.files.remove(file); }
+    public ObservableList<File> getFiles() { return this.files; }
     
 }
