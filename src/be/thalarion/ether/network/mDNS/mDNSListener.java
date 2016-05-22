@@ -1,7 +1,7 @@
-package be.thalarion.ether.network;
+package be.thalarion.ether.network.mDNS;
 
 import be.thalarion.ether.Ether;
-import be.thalarion.ether.network.Host.TYPE;
+import be.thalarion.ether.network.mDNS.mDNSHost.TYPE;
 import javafx.application.Platform;
 import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceInfo;
@@ -12,7 +12,7 @@ import javax.jmdns.ServiceListener;
  * 
  * @author florian
  */
-public class MDNSListener implements ServiceListener {
+public class mDNSListener implements ServiceListener {
 
     @Override
     public void serviceAdded(ServiceEvent se) {
@@ -23,11 +23,7 @@ public class MDNSListener implements ServiceListener {
         
         ServiceInfo si = se.getInfo();
         
-        Platform.runLater(() ->  {
-            Host host = Ether.getInstance().getHost(si.getName());
-            host.setAddress(si.getInetAddresses());
-            host.setPort(si.getPort());
-        });
+        mDNS.jmdns.requestServiceInfo(si.getType(), si.getName());
     }
 
     @Override
@@ -52,7 +48,7 @@ public class MDNSListener implements ServiceListener {
         ServiceInfo si = se.getInfo();
         
         Platform.runLater(() -> {
-            Host host = Ether.getInstance().getHost(si.getName());
+            mDNSHost host = Ether.getInstance().getHost(si.getName());
             host.setAddress(si.getInetAddresses());
             host.setPort(si.getPort());
             host.setType(TYPE.valueOf(si.getPropertyString("type").toUpperCase()));

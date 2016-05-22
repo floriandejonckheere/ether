@@ -1,6 +1,6 @@
 package be.thalarion.ether.gui;
 
-import be.thalarion.ether.network.Host;
+import be.thalarion.ether.network.mDNS.mDNSHost;
 import java.io.IOException;
 import java.net.URL;
 import javafx.fxml.FXMLLoader;
@@ -15,9 +15,9 @@ public class HostEntry extends HBox {
     
     private final HostEntryController controller;
 
-    private final Host host;
+    private final mDNSHost host;
     
-    public HostEntry(Host host) {
+    public HostEntry(mDNSHost host) {
         URL location = getClass().getResource("HostEntry.fxml");
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(location);
@@ -34,7 +34,7 @@ public class HostEntry extends HBox {
         controller.setType(host.getType());
     }
 
-    public Host getHost() { return host; }
+    public mDNSHost getHost() { return host; }
 
     @Override
     public boolean equals(Object obj) {

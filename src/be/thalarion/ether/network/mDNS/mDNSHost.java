@@ -1,4 +1,4 @@
-package be.thalarion.ether.network;
+package be.thalarion.ether.network.mDNS;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import javafx.beans.property.SimpleBooleanProperty;
  * 
  * @author florian
  */
-public class Host implements Observable {
+public class mDNSHost implements Observable {
     
     public static enum TYPE {
         LINUX,
@@ -33,7 +33,7 @@ public class Host implements Observable {
 
     private final List<InvalidationListener> listeners;
     
-    public Host(UUID uuid, String name, InetAddress[] address, int port, TYPE type) {
+    public mDNSHost(UUID uuid, String name, InetAddress[] address, int port, TYPE type) {
         this.uuid = uuid;
         this.name = name;
         this.address = address;
@@ -42,7 +42,7 @@ public class Host implements Observable {
         listeners = new ArrayList<>();
         active = new SimpleBooleanProperty(true);
     }
-    public Host(UUID uuid) { this(uuid, null, null, 0, null); };
+    public mDNSHost(UUID uuid) { this(uuid, null, null, 0, null); };
 
     public UUID getUUID() { return uuid; }
     
@@ -82,7 +82,7 @@ public class Host implements Observable {
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
         
-        final Host other = (Host) obj;
+        final mDNSHost other = (mDNSHost) obj;
         return this.uuid.equals(other.uuid);
     }
     

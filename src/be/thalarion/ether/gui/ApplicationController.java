@@ -1,7 +1,7 @@
 package be.thalarion.ether.gui;
 
 import be.thalarion.ether.Ether;
-import be.thalarion.ether.network.Host;
+import be.thalarion.ether.network.mDNS.mDNSHost;
 import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -43,10 +43,10 @@ public class ApplicationController {
         
         hosts = FXCollections.observableArrayList();
         
-        Ether.getInstance().getObservableHostList().addListener((ListChangeListener.Change<? extends Host> c) -> {
+        Ether.getInstance().getObservableHostList().addListener((ListChangeListener.Change<? extends mDNSHost> c) -> {
             hosts.clear();
             
-            for (Host host: Ether.getInstance().getObservableHostList())
+            for (mDNSHost host: Ether.getInstance().getObservableHostList())
                 if (host.activeProperty().get())
                     if (host.getUUID().equals(Ether.getInstance().getUUID()))
                         hosts.add(new HostEntry(Ether.getInstance().getLocalhost()));

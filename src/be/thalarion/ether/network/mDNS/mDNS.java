@@ -1,8 +1,10 @@
-package be.thalarion.ether.network;
+package be.thalarion.ether.network.mDNS;
 
 import be.thalarion.ether.Ether;
 import be.thalarion.ether.gui.ApplicationController;
-import be.thalarion.ether.network.Host.TYPE;
+import be.thalarion.ether.network.mDNS.mDNSHost.TYPE;
+import be.thalarion.ether.network.Name;
+import be.thalarion.ether.network.Server;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;
@@ -18,20 +20,20 @@ import javax.jmdns.ServiceInfo;
  * 
  * @author florian
  */
-public class MDNS {
+public class mDNS {
     
     private static final String SERVICE_TYPE = "_ether._tcp.local.";
     private static final int WEIGHT = 0;
     private static final int PRIORITY = 0;
     
     private final UUID uuid;
-    private final Host localhost;
+    private final mDNSHost localhost;
     
     private final Map<String, byte[]> properties;
     
-    private static JmDNS jmdns;
+    protected static JmDNS jmdns;
     
-    public MDNS() {
+    public mDNS() {
         uuid = UUID.randomUUID();
         String name = Name.generate();
         
@@ -49,14 +51,14 @@ public class MDNS {
             type = TYPE.APPLE;
         properties.put("type", type.name().getBytes(StandardCharsets.UTF_8));
         
-        localhost = new Host(uuid);
+        localhost = new mDNSHost(uuid);
         localhost.setName(String.format("%s (this computer)", name));
         localhost.setType(type);
     }
     
     public boolean isRegistered() { return (jmdns != null); }
     public UUID getUUID() { return uuid; }
-    public Host getLocalhost() { return localhost; }
+    public mDNSHost getLocalhost() { return localhost; }
     
     public void register() {
         new Thread(() -> {
@@ -65,7 +67,7 @@ public class MDNS {
                 ApplicationController.getInstance().setLoading(true);
             });
             try {
-                synchronized (MDNS.class) {
+                synchronized (mDNS.class) {
                     synchronized (Server.class) {
                         while (!Server.started)
                             Server.class.wait();
@@ -82,17 +84,17 @@ public class MDNS {
                             uuid.toString()
                     );
 
-                    ServiceInfo serviceInfo = ServiceInfo.create(MDNS.SERVICE_TYPE,
+                    ServiceInfo serviceInfo = ServiceInfo.create(mDNS.SERVICE_TYPE,
                             uuid.toString(),
                             Ether.getInstance().getServer().getPort(),
-                            MDNS.WEIGHT,
-                            MDNS.PRIORITY,
+                            mDNS.WEIGHT,
+                            mDNS.PRIORITY,
                             properties
                     );
 
                     jmdns.registerService(serviceInfo);
                     
-                    jmdns.addServiceListener(MDNS.SERVICE_TYPE, new MDNSListener());
+                    jmdns.addServiceListener(mDNS.SERVICE_TYPE, new mDNSListener());
                     
                     Platform.runLater(() -> {
                         ApplicationController.getInstance().setLoading(false);
@@ -111,7 +113,7 @@ public class MDNS {
                     ApplicationController.getInstance().setText("Unregistering from the network");
                     ApplicationController.getInstance().setLoading(true);
                 });
-                synchronized (MDNS.class) {
+                synchronized (mDNS.class) {
                     jmdns.unregisterAllServices();
                     try {
                         jmdns.close();

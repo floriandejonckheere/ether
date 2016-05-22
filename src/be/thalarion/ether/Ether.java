@@ -1,7 +1,7 @@
 package be.thalarion.ether;
 
-import be.thalarion.ether.network.Host;
-import be.thalarion.ether.network.MDNS;
+import be.thalarion.ether.network.mDNS.mDNSHost;
+import be.thalarion.ether.network.mDNS.mDNS;
 import be.thalarion.ether.network.Server;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -20,17 +20,17 @@ public class Ether {
     
     private static Ether instance;
     
-    private final MDNS mdns;
+    private final mDNS mdns;
     private final Server server;
     
-    private final ObservableList<Host> hosts;
+    private final ObservableList<mDNSHost> hosts;
     
     private Ether() {
-        hosts = FXCollections.observableList(new ArrayList<>(), (Host host) -> {
+        hosts = FXCollections.observableList(new ArrayList<>(), (mDNSHost host) -> {
             return new Observable[]{ host };
         });
         
-        mdns = new MDNS();
+        mdns = new mDNS();
         server = new Server();
         
         server.start();
@@ -51,14 +51,14 @@ public class Ether {
         server.stop();
     }
     
-    public Host getHost(String name) {
+    public mDNSHost getHost(String name) {
         UUID uuid = UUID.fromString(name);
         
-        for (Host h: hosts)
+        for (mDNSHost h: hosts)
             if (h.getUUID().equals(uuid))
                 return h;
         
-        Host host = new Host(uuid);
+        mDNSHost host = new mDNSHost(uuid);
         hosts.add(host);
         return host;
     }
@@ -66,15 +66,15 @@ public class Ether {
     public void removeHost(String name) {
         UUID uuid = UUID.fromString(name);
 
-        for (Host host: hosts)
+        for (mDNSHost host: hosts)
             if (host.getUUID().equals(uuid))
                 host.setActive(false);
     }
     
-    public ObservableList<Host> getObservableHostList() { return hosts; }
+    public ObservableList<mDNSHost> getObservableHostList() { return hosts; }
     public UUID getUUID() { return mdns.getUUID(); }
     public Server getServer() { return server; }
     
-    public Host getLocalhost() { return mdns.getLocalhost(); }
+    public mDNSHost getLocalhost() { return mdns.getLocalhost(); }
     
 }
