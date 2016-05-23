@@ -1,6 +1,6 @@
 package be.thalarion.ether.gui;
 
-import be.thalarion.ether.network.mDNS.mDNSHost;
+import be.thalarion.ether.network.mdns.mDNSHost;
 import java.io.IOException;
 import java.net.URL;
 import javafx.fxml.FXMLLoader;

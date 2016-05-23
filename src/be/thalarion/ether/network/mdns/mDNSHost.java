@@ -1,4 +1,4 @@
-package be.thalarion.ether.network.mDNS;
+package be.thalarion.ether.network.mdns;
 
 import java.net.InetAddress;
 import java.util.ArrayList;

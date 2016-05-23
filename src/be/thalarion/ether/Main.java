@@ -43,7 +43,7 @@ public class Main extends Application {
             Dragboard db = ev.getDragboard();
             if (db.hasFiles())
                 for (File file: db.getFiles())
-                    Ether.getInstance().addFile(file);
+                    Ether.getInstance().addFile(file.getAbsoluteFile());
 
                 
             ev.setDropCompleted(true);

@@ -1,4 +1,4 @@
-package be.thalarion.ether.network;
+package be.thalarion.ether.network.server;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -62,7 +62,7 @@ public class Server {
                 while (true) {
                     Socket client = socket.accept();
                     clients.add(client);
-                    new Thread(new Client(client)).start();
+                    new Thread(new ClientThread(client)).start();
                 }
             } catch (IOException ex) {
             } finally {

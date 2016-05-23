@@ -1,11 +1,9 @@
 package be.thalarion.ether.gui;
 
 import be.thalarion.ether.Ether;
-import be.thalarion.ether.network.mDNS.mDNSHost;
-import javafx.beans.Observable;
+import be.thalarion.ether.network.mdns.mDNSHost;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -58,8 +56,12 @@ public class ApplicationController {
         hostsListView.setPlaceholder(new Label("No hosts on the network"));
         
         hostsListView.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends HostEntry> observable, HostEntry oldValue, HostEntry newValue) -> {
-            if (newValue != null)
-                System.out.println(newValue.getHost());
+            if (newValue != null) {
+                mDNSHost host = newValue.getHost();
+                if (host.equals(Ether.getInstance().getLocalhost())) {
+                    
+                }
+            }
         });
     }
     

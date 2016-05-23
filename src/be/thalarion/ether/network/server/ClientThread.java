@@ -1,4 +1,4 @@
-package be.thalarion.ether.network;
+package be.thalarion.ether.network.server;
 
 import be.thalarion.ether.Ether;
 import be.thalarion.ether.Main;
@@ -13,13 +13,13 @@ import java.net.Socket;
  * Client control layer
  * @author florian
  */
-public class Client implements Runnable {
+public class ClientThread implements Runnable {
 
     private final Socket socket;
     private final BufferedReader in;
     private final BufferedWriter out;
     
-    public Client(Socket socket) 
+    public ClientThread(Socket socket) 
             throws IOException {
         this.socket = socket;
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));

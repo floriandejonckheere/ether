@@ -1,6 +1,6 @@
 package be.thalarion.ether.gui;
 
-import be.thalarion.ether.network.mDNS.mDNSHost.TYPE;
+import be.thalarion.ether.network.mdns.mDNSHost.TYPE;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;

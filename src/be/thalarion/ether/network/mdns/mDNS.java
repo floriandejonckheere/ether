@@ -1,10 +1,10 @@
-package be.thalarion.ether.network.mDNS;
+package be.thalarion.ether.network.mdns;
 
 import be.thalarion.ether.Ether;
 import be.thalarion.ether.gui.ApplicationController;
-import be.thalarion.ether.network.mDNS.mDNSHost.TYPE;
+import be.thalarion.ether.network.mdns.mDNSHost.TYPE;
 import be.thalarion.ether.network.Name;
-import be.thalarion.ether.network.Server;
+import be.thalarion.ether.network.server.Server;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;

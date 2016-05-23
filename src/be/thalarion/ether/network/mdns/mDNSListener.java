@@ -1,7 +1,7 @@
-package be.thalarion.ether.network.mDNS;
+package be.thalarion.ether.network.mdns;
 
 import be.thalarion.ether.Ether;
-import be.thalarion.ether.network.mDNS.mDNSHost.TYPE;
+import be.thalarion.ether.network.mdns.mDNSHost.TYPE;
 import javafx.application.Platform;
 import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceInfo;

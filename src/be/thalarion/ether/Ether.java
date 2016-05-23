@@ -1,8 +1,9 @@
 package be.thalarion.ether;
 
-import be.thalarion.ether.network.mDNS.mDNSHost;
-import be.thalarion.ether.network.mDNS.mDNS;
-import be.thalarion.ether.network.Server;
+import be.thalarion.ether.files.PrefixTree;
+import be.thalarion.ether.network.mdns.mDNSHost;
+import be.thalarion.ether.network.mdns.mDNS;
+import be.thalarion.ether.network.server.Server;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -25,14 +26,14 @@ public class Ether {
     private final Server server;
     
     private final ObservableList<mDNSHost> hosts;
-    private final ObservableList<File> files;
+    private final PrefixTree tree;
     
     private Ether() {
         hosts = FXCollections.observableList(new ArrayList<>(), (mDNSHost host) -> {
             return new Observable[]{ host };
         });
         
-        files = FXCollections.observableArrayList();
+        tree = new PrefixTree();
         
         mdns = new mDNS();
         server = new Server();
@@ -81,8 +82,7 @@ public class Ether {
     
     public mDNSHost getLocalhost() { return mdns.getLocalhost(); }
     
-    public void addFile(File file) { this.files.add(file); }
-    public void removeFile(File file) { this.files.remove(file); }
-    public ObservableList<File> getFiles() { return this.files; }
+    public void addFile(File file) { tree.add(file); tree.printTree(); }
+    public PrefixTree getFiles() { return tree; }
     
 }
